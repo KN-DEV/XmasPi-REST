@@ -1,2 +1,7 @@
 fuel/app/logs/*/*/*
 fuel/app/cache/*/*
+fuel/app/tmp/*
+/nbproject/private/
+/fuel/app/config/development/migrations.php
+/docs/*
+/docs
