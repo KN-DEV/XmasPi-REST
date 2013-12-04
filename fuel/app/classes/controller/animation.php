@@ -106,5 +106,16 @@ class Controller_Animation extends \Fuel\Core\Controller_Rest {
             );
         }
     }
-
+    
+    public function get_test()
+    {
+     
+//                = array(
+//        'Access-Control-Allow-Origin' => '*',
+//        'Access-Control-Allow-Headers' => 'content-type',
+//        'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS',
+//        'Access-Control-Max-Age' => '28800'
+//    );
+        $this->response(array(\Input::param()));
+    }
 }

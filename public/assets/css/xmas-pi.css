@@ -1,0 +1,31 @@
+.modal .modal-body {
+  overflow-y: auto;
+}
+.btn {
+  text-decoration: none !important;
+}
+.btn:focus {
+  outline: 0;
+}
+button > .fa-square-o {
+  margin: 1.5px -2.5px;
+}
+button > .fa-square {
+  margin: 1.5px -3px;
+}
+@media (min-width: 768px) {
+  button > .fa-square-o {
+    margin: 1.5px 1.5px;
+  }
+  button > .fa-square {
+    margin: 1.5px 0.5px;
+  }
+}
+@media (min-width: 992px) {
+  button > .fa-square-o {
+    margin: 1.5px 1.5px;
+  }
+  button > .fa-square {
+    margin: 1.5px 0px;
+  }
+}
