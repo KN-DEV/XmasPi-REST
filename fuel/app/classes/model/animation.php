@@ -19,6 +19,8 @@ use Orm\Model;
  */
 class Model_Animation extends Model {
 
+    const DEFAULT_FRAME_PER_SECOND = 24;
+
     protected static $_table_name = 'Animation';
     protected static $_properties = array(
         'id',
@@ -31,7 +33,11 @@ class Model_Animation extends Model {
         'views' => array(
             'type' => 'int',
             'default' => 0,
-        )
+        ),
+        'frames_per_second' => array(
+            'type' => 'int',
+            'default' => self::DEFAULT_FRAME_PER_SECOND,
+        ),
     );
     protected static $_primary_key = array(
         'id',

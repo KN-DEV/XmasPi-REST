@@ -35,7 +35,7 @@ class Controller_Animation extends \Fuel\Core\Controller_Rest {
                 $new_animation->queue = new \Model_Queue();
                 $new_animation->save();
 
-                # how many minutes have to wait
+# how many minutes have to wait
                 $offset = 60 * \Model_Queue::query()->where('animation_id', '<=', $new_animation->id)->count();
                 $this->response(
                         array(
@@ -57,11 +57,23 @@ class Controller_Animation extends \Fuel\Core\Controller_Rest {
      * R
      * @return json
      */
-    public function get_random() {
+    public function get_get() {
 
-        $animation = \Model_Animation::query()
-                ->where('id', rand(0, Model_Animation::count()))
+
+
+        $queue = Model_Queue::query()
+                ->related('animation')
+                ->related('animation.frames')
                 ->get_one();
+
+        if ($queue) {
+            $animation = $queue->animation;
+            $queue->delete();
+        } else {
+            $animation = \Model_Animation::query()
+                    ->where('id', rand(0, Model_Animation::count()))
+                    ->get_one();
+        }
 
         if ($animation) {
             $this->response(
@@ -70,32 +82,6 @@ class Controller_Animation extends \Fuel\Core\Controller_Rest {
                         'frames' => $animation->frames
                     )
             );
-        } else {
-            $this->response(
-                    array(
-                        'error' => 1
-                    )
-            );
-        }
-    }
-
-    /**
-     * 
-     * @return type
-     */
-    public function get_from_queue() {
-
-        $queue = Model_Queue::query()
-                ->related('animation')
-                ->related('animation.frames')
-                ->get_one();
-
-
-        if ($queue) {
-            $this->response(
-                    array($queue->animation)
-            );
-            $queue->delete();
         } else {
             $this->response(
                     array(
