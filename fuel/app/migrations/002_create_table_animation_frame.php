@@ -15,7 +15,7 @@ class Create_table_animation_frame {
                 'type' => 'int',
                 'constraint' => 11,
             ),
-            'diodes_states' => array(
+            'diodes_state' => array(
                 'type' => 'char',
                 'constraint' => 40,
                 'default' => '1111111111111111111111111111111111111111',

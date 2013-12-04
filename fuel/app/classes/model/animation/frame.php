@@ -25,7 +25,7 @@ class Model_Animation_Frame extends Model {
         'animation_id' => array(
             'type' => 'int',
         ),
-        'diodes_states' => array(
+        'diodes_state' => array(
             'type' => 'string',
             'default' => '1111111111111111111111111111111111111111',
         ),

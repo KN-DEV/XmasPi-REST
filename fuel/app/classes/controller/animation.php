@@ -76,10 +76,26 @@ class Controller_Animation extends \Fuel\Core\Controller_Rest {
         }
 
         if ($animation) {
+
+
+            $fps = array('frames_per_second' => $animation->frames_per_second);
+
+            $frames = array();
+            foreach ($animation->frames as $frame) {
+
+                $diodes_state = array();
+                for ($i = 0; $i <= 39; $i++) {
+                    $diodes_state[] = $frame->diodes_state[$i];
+                }
+
+                $frames[] = array(
+                    'iterations' => $frame->iterations,
+                    'diodes_state' => $diodes_state,
+                );
+            }
             $this->response(
-                    array(
-                        'animation' => $animation,
-                        'frames' => $animation->frames
+                    array('fps' => $animation->frames_per_second,
+                        'frames' => $frames,
                     )
             );
         } else {
