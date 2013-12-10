@@ -9,8 +9,8 @@ use Orm\Model;
  * ---
  * @property int $id Id of animation frame
  * @property int $animation_id Id of animation
- * @property string[40] $diodes_states Array of 40 diodes states
- * @property int $iterations How many times should frame be repeted
+ * @property string[40] $diodes_state Array of 40 diodes states
+ * @property int $repetition_count How many times should frame be repeted
  * ---
  * @property \Model_Animation $animation Belongs to animation
  */
@@ -21,17 +21,20 @@ class Model_Animation_Frame extends Model {
 
     protected static $_table_name = 'Animation_Frame';
     protected static $_properties = array(
-        'id',
+        'id' => array(
+            'data_type' => 'int',
+        ),
         'animation_id' => array(
-            'type' => 'int',
+            'data_type' => 'int',
+            'null' => false,
         ),
         'diodes_state' => array(
-            'type' => 'string',
+            'data_type' => 'varchar',
             'default' => '1111111111111111111111111111111111111111',
         ),
-        'iterations' => array(
-            'type' => 'int',
-            'default' => 1,
+        'repetition_count' => array(
+            'data_type' => 'int',
+            'default' => 1
         )
     );
     protected static $_primary_key = array(
@@ -51,6 +54,9 @@ class Model_Animation_Frame extends Model {
             'cascade_delete' => false,
         )
     );
+    protected static $_observers = array('Orm\\Observer_Typing' => array(
+            'events' => array('before_save', 'after_save', 'after_load')
+    ));
 
     /**
      * 
@@ -58,7 +64,7 @@ class Model_Animation_Frame extends Model {
      * @param bool $state
      */
     public function change_diode_state($diode_id, $state) {
-        $this->diodes_states[$diode_id] = $state;
+        $this->diodes_state[$diode_id] = $state;
     }
 
 }

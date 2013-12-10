@@ -5,3 +5,6 @@ fuel/app/tmp/*
 /fuel/app/config/development/migrations.php
 /docs/*
 /docs
+/fuel/app/cache/
+/fuel/app/logs/
+/fuel/app/config/production/db.php

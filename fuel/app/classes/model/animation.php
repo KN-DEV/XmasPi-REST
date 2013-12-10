@@ -23,19 +23,22 @@ class Model_Animation extends Model {
 
     protected static $_table_name = 'Animation';
     protected static $_properties = array(
-        'id',
+        'id' => array(
+            'data_type' => 'int',
+        ),
         'author' => array(
-            'type' => 'varchar',
+            'data_type' => 'varchar',
+            'default' => 'default',
         ),
         'created_at' => array(
-            'type' => 'time_mysql'
+            'data_type' => 'time_mysql',
         ),
         'views' => array(
-            'type' => 'int',
+            'data_type' => 'int',
             'default' => 0,
         ),
         'frames_per_second' => array(
-            'type' => 'int',
+            'data_type' => 'int',
             'default' => self::DEFAULT_FRAME_PER_SECOND,
         ),
     );

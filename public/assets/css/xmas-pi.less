@@ -2,6 +2,20 @@
     overflow-y: auto;
 }
 
+#toolbar {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#tree-wrapper {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 // bootstrap media querries
 @sm: 768px;
 @md: 992px;
@@ -14,38 +28,21 @@
   outline: 0;
 }
 
+  .light {
+      padding-left: 0;
+      padding-right: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+
+      margin-left: 6px;
+      margin-right: 6px;
+  }
+
 // media querries used to prevent 
 // awesomefonts from moving
 button > .fa-square-o {
-  margin: 1.5px -2.5px;
+  margin: 1.5px 1.5px;
 }
 button > .fa-square {
-  margin: 1.5px -3px;
+  margin: 1.5px 0.5px;
 }
-
-@media (min-width: @sm) { 
-    button > .fa-square-o {
-      margin: 1.5px 1.5px;
-    }
-    button > .fa-square {
-      margin: 1.5px 0.5px;
-    }
-}
-
-@media (min-width: @md) { 
-    button > .fa-square-o {
-      margin: 1.5px 1.5px;
-    }
-    button > .fa-square {
-      margin: 1.5px 0px;
-    }
-}
-
-//@media (min-width: @lg) { 
-    //button > .fa-square-o {
-      //margin: 1.5px 1.5px;
-    //}
-    //button > .fa-square {
-      //margin: 1.5px 0px;
-    //}
-//}
