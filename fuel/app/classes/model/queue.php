@@ -23,10 +23,10 @@ class Model_Queue extends Model {
     protected static $_properties = array(
         'id',
         'animation_id' => array(
-            'type' => 'int',
+            'data_type' => 'int',
         ),
         'priority' => array(
-            'type' => 'bool',
+            'data_type' => 'bool',
             'default' => self::PRIORITY_LOW,
         )
     );

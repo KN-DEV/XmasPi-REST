@@ -71,10 +71,10 @@ class Controller_Animation extends \Controller_Rest {
             $animation->frames[] = $frame;
         }
 
-        $animation->queue = new Model_Queue();
+        $animation->queue = new \Model_Queue();
         $animation->save();
 
-        $this->response(array('queue' => \Model_Queue::query()->where('animation_id', '<=', $new_animation->id)->count()));
+        $this->response(array('queue' => \Model_Queue::query()->where('animation_id', '<=', $animation->id)->count()));
     }
 
     /**
