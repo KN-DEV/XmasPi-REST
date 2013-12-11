@@ -58,23 +58,34 @@ class Controller_Animation extends \Controller_Rest {
 
     public function post_add() {
         $this->format = 'json';
+        try {
 
+            $animation = new Model_Animation();
+            foreach (\Input::param('framesArray') as $key => $value) {
+                $frame = new Model_Animation_Frame();
 
-        $animation = new Model_Animation();
-        foreach (\Input::param('framesArray') as $key => $value) {
-            $frame = new Model_Animation_Frame();
+                foreach ($value as $k => $v) {
+                    $frame->change_diode_state($k, $v);
+                }
 
-            foreach ($value as $k => $v) {
-                $frame->change_diode_state($k, $v);
+                $animation->frames[] = $frame;
             }
 
-            $animation->frames[] = $frame;
+            $animation->queue = new \Model_Queue();
+            $animation->save();
+        } catch (\Exception $e) {
+            return $this->response(array(
+                        'param' => \Input::param(),
+                        'orginal' => \Input::param('framesArray'),
+            ));
         }
 
-        $animation->queue = new \Model_Queue();
-        $animation->save();
-
-        $this->response(array('queue' => \Model_Queue::query()->where('animation_id', '<=', $animation->id)->count()));
+        return $this->response(array(
+                    'param' => \Input::param(),
+                    'queue' => \Model_Queue::query()->where('animation_id', '<=', $animation->id)->count(),
+                    'animation' => $animation,
+                    'orginal' => \Input::param('framesArray'),
+        ));
     }
 
     /**
