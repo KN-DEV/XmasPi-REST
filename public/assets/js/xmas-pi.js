@@ -114,12 +114,12 @@
      */ 
 
     $.fn.ajaxPost = function(frames) {
-        var URL = "http://dev.uek.krakow.pl/~xmaspi/" + 
-                "index.php/animation/add";
+        var URL = "http://192.168.1.102/~plysiu/XmasPi-REST/index.php/animation/add";
+       
         $.ajax({
             type: 'POST',
             url: URL,
-            data: {framesArray: frames.list},
+            data: {framesArray: JSON.stringify(frames.list)},
             success: function(response) {
                 console.log(response); 
             }

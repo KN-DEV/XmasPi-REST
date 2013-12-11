@@ -61,7 +61,7 @@ class Controller_Animation extends \Controller_Rest {
         try {
 
             $animation = new Model_Animation();
-            foreach (\Input::param('framesArray') as $key => $value) {
+            foreach (\Format::forge(\Input::param('framesArray'),'json')->to_array() as $key => $value) {
                 $frame = new Model_Animation_Frame();
 
                 foreach ($value as $k => $v) {
@@ -81,6 +81,7 @@ class Controller_Animation extends \Controller_Rest {
         }
 
         return $this->response(array(
+                
                     'param' => \Input::param(),
                     'queue' => \Model_Queue::query()->where('animation_id', '<=', $animation->id)->count(),
                     'animation' => $animation,
