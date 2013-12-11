@@ -95,7 +95,7 @@ class Controller_Animation extends \Controller_Rest {
             $queue->delete();
         } else {
             $animation = \Model_Animation::query()
-                    ->where('id', rand(1, Model_Animation::count()))
+                    ->where('id', (int) rand(1, Model_Animation::count()))
                     ->get_one();
         }
 
