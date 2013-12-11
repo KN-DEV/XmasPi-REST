@@ -35,14 +35,19 @@ class Model_Animation_Frame extends Model {
         'repetition_count' => array(
             'data_type' => 'int',
             'default' => 1
-        )
+        ),
+//        'order' => array(
+//            'data_type' => 'int',
+//            'default' => 1,
+//        ),
     );
     protected static $_primary_key = array(
         'id',
     );
     protected static $_conditions = array(
         'order_by' => array(
-            'id' => 'DESC',
+//            'order' => 'ASC',
+            'id' => 'ASC',
         ),
     );
     protected static $_belongs_to = array(
