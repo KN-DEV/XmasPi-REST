@@ -108,17 +108,14 @@ class Controller_Animation extends \Controller_Rest {
 
                 $diodes_state = array();
                 for ($i = 0; $i <= 39; $i++) {
-                    $diodes_state[] = (int)$frame->diodes_state[$i];
+                    $diodes_state[] = (int) $frame->diodes_state[$i];
                 }
                 /**
                  * @todo change field
                  */
                 $frames[] = $diodes_state;
             }
-            $this->response(
-                    array('fps' => $animation->frames_per_second,
-                        'frames' => $frames,
-                    )
+            $this->response($frames
             );
         } else {
             $this->response(
