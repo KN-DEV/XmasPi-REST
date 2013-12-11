@@ -108,7 +108,7 @@ class Controller_Animation extends \Controller_Rest {
 
                 $diodes_state = array();
                 for ($i = 0; $i <= 39; $i++) {
-                    $diodes_state[] = $frame->diodes_state[$i];
+                    $diodes_state[] = (int)$frame->diodes_state[$i];
                 }
                 /**
                  * @todo change field
