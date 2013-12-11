@@ -113,10 +113,7 @@ class Controller_Animation extends \Controller_Rest {
                 /**
                  * @todo change field
                  */
-                $frames[] = array(
-                    'repetition_count' => $frame->repetition_count,
-                    'diodes_state' => $diodes_state,
-                );
+                $frames[] = $diodes_state;
             }
             $this->response(
                     array('fps' => $animation->frames_per_second,
