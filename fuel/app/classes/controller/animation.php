@@ -58,10 +58,10 @@ class Controller_Animation extends \Controller_Rest {
 
     public function post_add() {
         $this->format = 'json';
-        try {
 
+        try {
             $animation = new Model_Animation();
-            foreach (\Format::forge(\Input::param('framesArray'),'json')->to_array() as $key => $value) {
+            foreach (\Format::forge(\Input::param('framesArray'), 'json')->to_array() as $key => $value) {
                 $frame = new Model_Animation_Frame();
 
                 foreach ($value as $k => $v) {
@@ -72,21 +72,21 @@ class Controller_Animation extends \Controller_Rest {
             }
 
             $animation->queue = new \Model_Queue();
-            $animation->save();
+            $animation->save(null, true);
+
+
+            $this->response(array(
+                'param' => \Input::param(),
+                'queue' => \Model_Queue::query()->where('animation_id', '<=', $animation->id)->count(),
+                'animation' => $animation,
+                'orginal' => \Input::param('framesArray'),
+            ));
         } catch (\Exception $e) {
-            return $this->response(array(
-                        'param' => \Input::param(),
-                        'orginal' => \Input::param('framesArray'),
+            $this->response(array(
+                'param' => \Input::param(),
+                'orginal' => \Input::param('framesArray'),
             ));
         }
-
-        return $this->response(array(
-                
-                    'param' => \Input::param(),
-                    'queue' => \Model_Queue::query()->where('animation_id', '<=', $animation->id)->count(),
-                    'animation' => $animation,
-                    'orginal' => \Input::param('framesArray'),
-        ));
     }
 
     /**
@@ -95,11 +95,13 @@ class Controller_Animation extends \Controller_Rest {
      */
     public function get_get() {
 
-
-
         $queue = Model_Queue::query()
+                ->order_by('priority', 'DESC')
+                ->order_by('id', 'ASC')
                 ->related('animation')
+                ->order_by('animation.id', 'ASC')
                 ->related('animation.frames')
+                ->order_by('animation.frames.id', 'ASC')
                 ->get_one();
 
         if ($queue) {
@@ -107,8 +109,10 @@ class Controller_Animation extends \Controller_Rest {
             $queue->delete();
         } else {
             $animation = \Model_Animation::query()
-                    ->where('id', (int) rand(1, Model_Animation::count()))
-                    ->get_one();
+            ->where('id', (int) rand(1, Model_Animation::count()))
+            ->related('frames')
+            ->order_by('frames_id', 'ASC')
+            ->get_one();
         }
 
         if ($animation) {
