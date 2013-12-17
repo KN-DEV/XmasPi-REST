@@ -11,10 +11,13 @@ use Orm\Model;
  * @property string $author Animation author
  * @property mysql_timestamp $created_at Timestamp of created row in database
  * @property int $views How many times animation has been shown
+ * 
+ * 
  * ---
  * @property \Model_Queue $queue Belongs to queue
  * @property \Model_Animation_Frame[] $frames Has many frames
- * 
+ * @property int $views 
+ * @property time_mysql $viewed_at
  * 
  */
 class Model_Animation extends Model {
@@ -26,16 +29,8 @@ class Model_Animation extends Model {
         'id' => array(
             'data_type' => 'int',
         ),
-        'author' => array(
-            'data_type' => 'varchar',
-            'default' => 'default',
-        ),
         'created_at' => array(
             'data_type' => 'time_mysql',
-        ),
-        'views' => array(
-            'data_type' => 'int',
-            'default' => 0,
         ),
         'frames_per_second' => array(
             'data_type' => 'int',
@@ -47,7 +42,7 @@ class Model_Animation extends Model {
     );
     protected static $_conditions = array(
         'order_by' => array(
-            'id' => 'DESC',
+            'id' => 'ASC',
         ),
     );
     protected static $_observers = array(
@@ -80,6 +75,13 @@ class Model_Animation extends Model {
         'frames' => array(
             'key_from' => 'id',
             'model_to' => '\Model_Animation_Frame',
+            'key_to' => 'animation_id',
+            'cascade_save' => true,
+            'cascade_delete' => true,
+        ),
+        'logs' => array(
+            'key_from' => 'id',
+            'model_to' => '\Model_Log',
             'key_to' => 'animation_id',
             'cascade_save' => true,
             'cascade_delete' => true,

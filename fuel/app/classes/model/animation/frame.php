@@ -32,21 +32,12 @@ class Model_Animation_Frame extends Model {
             'data_type' => 'varchar',
             'default' => '1111111111111111111111111111111111111111',
         ),
-        'repetition_count' => array(
-            'data_type' => 'int',
-            'default' => 1
-        ),
-//        'order' => array(
-//            'data_type' => 'int',
-//            'default' => 1,
-//        ),
     );
     protected static $_primary_key = array(
         'id',
     );
     protected static $_conditions = array(
         'order_by' => array(
-//            'order' => 'ASC',
             'id' => 'ASC',
         ),
     );
@@ -59,8 +50,13 @@ class Model_Animation_Frame extends Model {
             'cascade_delete' => false,
         )
     );
-    protected static $_observers = array('Orm\\Observer_Typing' => array(
-            'events' => array('before_save', 'after_save', 'after_load')
+    protected static $_observers = array(
+        'Orm\\Observer_Typing' => array(
+            'events' => array(
+                'before_save',
+                'after_save',
+                'after_load',
+            )
     ));
 
     /**
